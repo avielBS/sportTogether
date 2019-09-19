@@ -39,6 +39,14 @@
             android:id="@+id/single_workout_type"
             android:text="Workout type"/>
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="Join"
+            android:id="@+id/join_workout_btn"
+            />
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

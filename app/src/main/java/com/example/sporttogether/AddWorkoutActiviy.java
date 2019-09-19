@@ -1,5 +1,6 @@
 package com.example.sporttogether;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -13,8 +14,15 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class AddWorkoutActiviy extends AppCompatActivity {
@@ -29,6 +37,11 @@ public class AddWorkoutActiviy extends AppCompatActivity {
     private String type;
 
     private DatabaseReference databaseReference;
+    private DatabaseReference userDatabaseReference;
+    private  DatabaseReference joinedDatabaseReference;
+
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +49,10 @@ public class AddWorkoutActiviy extends AppCompatActivity {
         setContentView(R.layout.activity_add_workout_activiy);
 
         this.spinnerType = findViewById(R.id.spinner_type);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+
 
         ArrayAdapter<CharSequence> stringArrayAdapter = ArrayAdapter.createFromResource(this,R.array.types,android.R.layout.simple_spinner_item);
         stringArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -66,24 +83,51 @@ public class AddWorkoutActiviy extends AppCompatActivity {
             }
         });
         databaseReference = FirebaseDatabase.getInstance().getReference().child(Util.WORKOUTS);
+        userDatabaseReference = FirebaseDatabase.getInstance().getReference().child(Util.USERS).child(firebaseUser.getUid());
+
     }
 
     private void addWorkoutToFirebase() {
         progressBar.setVisibility(View.VISIBLE);
-        String title = this.workoutTitle.getText().toString();
-        String description = this.workoutDescription.getText().toString();
-        String city = this.workoutCity.getText().toString();
+        final String title = this.workoutTitle.getText().toString();
+        final String description = this.workoutDescription.getText().toString();
+        final String city = this.workoutCity.getText().toString();
 
         if(!title.isEmpty() && !city.isEmpty()){
             //
-            DatabaseReference newWorkout = databaseReference.push();
-            newWorkout.child(Util.TITLE).setValue(title);
-            newWorkout.child(Util.DESCRIPTION).setValue(description);
-            newWorkout.child(Util.CITY).setValue(city);
-            newWorkout.child(Util.TYPE).setValue(type);
-            progressBar.setVisibility(View.INVISIBLE);
-            Toast.makeText(this,"Your workout add successfully",Toast.LENGTH_LONG).show();
-            startActivity(new Intent(AddWorkoutActiviy.this,MainActivity.class));
+            final DatabaseReference newWorkout = databaseReference.push();
+
+            userDatabaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    newWorkout.child(Util.TITLE).setValue(title);
+                    newWorkout.child(Util.DESCRIPTION).setValue(description);
+                    newWorkout.child(Util.CITY).setValue(city);
+                    newWorkout.child(Util.TYPE).setValue(type);
+                    newWorkout.child(Util.USERID).setValue(firebaseUser.getUid());
+                    newWorkout.child(Util.USERNAME).setValue(dataSnapshot.child(Util.NAME).getValue())
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        progressBar.setVisibility(View.INVISIBLE);
+                                        Toast.makeText(getApplicationContext(),"Your workout add successfully",Toast.LENGTH_LONG).show();
+                                        startActivity(new Intent(AddWorkoutActiviy.this,MainActivity.class));
+                                    }else{
+                                        progressBar.setVisibility(View.INVISIBLE);
+                                        Toast.makeText(getApplicationContext(),"upload failed",Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            });
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+
 
         }
         else{

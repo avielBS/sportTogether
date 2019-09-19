@@ -12,4 +12,9 @@ class Util {
     public static final String DESCRIPTION = "description";
     public static final String CITY = "city";
     public static final String TYPE = "type";
+    public static final String USERID = "userId";
+    public static final String USERNAME = "username";
+    public static final String JOINED = "Joined to workout";
+    public static final String LEAVE = "Leave workout";
 }
+
