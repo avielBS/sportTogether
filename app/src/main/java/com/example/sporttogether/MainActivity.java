@@ -24,6 +24,8 @@ import com.google.firestore.v1.FirestoreGrpc;
 public class MainActivity extends AppCompatActivity {
 
     private Button loginBtn;
+    private Button workoutsButton;
+
     private FirebaseDatabase firebaseDatabase;
 
     private FirebaseAuth firebaseAuth;
@@ -35,6 +37,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         loginBtn = findViewById(R.id.login_btn);
+        workoutsButton = findViewById(R.id.workouts_btn);
+
+        workoutsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent workoutsIntent = new Intent(MainActivity.this, WorkoutsActivity.class);
+                workoutsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(workoutsIntent);
+            }
+        });
+
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

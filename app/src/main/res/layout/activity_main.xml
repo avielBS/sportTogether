@@ -28,4 +28,12 @@
         android:id="@+id/workout_history_btn"
         android:text="Workout History"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/workout_history_btn"
+        android:id="@+id/workouts_btn"
+        android:text="Workouts"
+        />
+
 </RelativeLayout>
