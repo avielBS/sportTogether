@@ -94,12 +94,13 @@ public class LoginActivity extends AppCompatActivity {
 
     private void checkUserExist() {
 
+
         final String userId = firebaseAuth.getCurrentUser().getUid();
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                if( ! dataSnapshot.hasChild(userId)){
+                if( dataSnapshot.hasChild(userId)){
                     progressBar.setVisibility(View.INVISIBLE);
                     Toast.makeText(getApplicationContext(),"Logged in",Toast.LENGTH_LONG).show();
                     Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);

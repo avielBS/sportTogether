@@ -1,6 +1,5 @@
 package com.example.sporttogether;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,48 +11,39 @@ import android.widget.EditText;
 
 import com.example.sporttogether.Data.WorkoutRecord;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
-
-
-public class WorkoutsActivity extends AppCompatActivity {
+public class HistoryActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private DatabaseReference databaseReference;
-    private FirebaseRecyclerOptions< WorkoutRecord> firebaseOptions;
+    private DatabaseReference joinedWorkouts;
+    private FirebaseRecyclerOptions<WorkoutRecord> firebaseOptions;
     private WorkoutAdapter workoutAdapter;
-    private EditText searchCity;
-    private Button searchButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_workouts);
+        setContentView(R.layout.activity_history);
 
-        searchCity = findViewById(R.id.search_city_editText);
-        searchButton = findViewById(R.id.search_city_btn);
-
-        recyclerView = findViewById(R.id.workout_list);
+        recyclerView = findViewById(R.id.history_list);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child(Util.WORKOUTS);
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                firebaseOptions = new FirebaseRecyclerOptions.Builder<WorkoutRecord>()
-                        .setQuery(databaseReference.orderByChild(Util.PUBLIC_CITY).equalTo(Util.PUBLIC+"_"+searchCity.getText().toString())
-
+        firebaseOptions = new FirebaseRecyclerOptions.Builder<WorkoutRecord>()
+                        .setQuery(databaseReference.orderByChild(Util.USERID).equalTo(FirebaseAuth.getInstance().getUid().toString())
                                 ,WorkoutRecord.class).build();
 
-                workoutAdapter = new WorkoutAdapter(firebaseOptions);
-                workoutAdapter.startListening();
+        workoutAdapter = new WorkoutAdapter(firebaseOptions);
+        workoutAdapter.startListening();
 
-                recyclerView.setAdapter(workoutAdapter);
-            }
-        });
+        recyclerView.setAdapter(workoutAdapter);
+
 
     }
 
@@ -70,7 +60,4 @@ public class WorkoutsActivity extends AppCompatActivity {
         if(workoutAdapter!=null)
             workoutAdapter.stopListening();
     }
-
-
-
 }

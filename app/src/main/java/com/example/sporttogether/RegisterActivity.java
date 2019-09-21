@@ -78,9 +78,11 @@ public class RegisterActivity extends AppCompatActivity {
                         currentUser.child(Util.PASSWORD).setValue(passwordStr);
 
                         progressBar.setVisibility(View.INVISIBLE);
+                        Toast.makeText(getApplicationContext(),"Welcome !",Toast.LENGTH_LONG).show();
+
                     }
                     else{
-                        Toast.makeText(getApplicationContext(),"Cant register",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"Cant register "+task.getException().getMessage(),Toast.LENGTH_LONG).show();
                         progressBar.setVisibility(View.INVISIBLE);
                     }
                 }

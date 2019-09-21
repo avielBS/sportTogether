@@ -44,6 +44,34 @@
         android:hint="City"
         />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/workout_date_text"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="set date"
+        android:id="@+id/date_button"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/workout_hour_text"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="set hour"
+        android:id="@+id/workout_hour_button"
+        android:layout_gravity="center"/>
+
+
+
     <ProgressBar
         android:layout_gravity="center"
         android:layout_marginTop="25dp"

@@ -23,9 +23,11 @@ import com.google.firebase.database.ValueEventListener;
 
 public class WorkoutAdapter extends FirebaseRecyclerAdapter<WorkoutRecord, WorkoutAdapter.WorkoutViewHolder> {
 
-    DatabaseReference joinedDatabaseReference = FirebaseDatabase.getInstance().getReference().child(Util.JOINED);
-    DatabaseReference userDatabaseReference = FirebaseDatabase.getInstance().getReference().child(Util.USERS)
+    private DatabaseReference joinedDatabaseReference = FirebaseDatabase.getInstance().getReference().child(Util.JOIN_TO_WORKOUT);
+    private DatabaseReference workoursDatabaseReference = FirebaseDatabase.getInstance().getReference().child(Util.WORKOUTS);
+    private DatabaseReference userDatabaseReference = FirebaseDatabase.getInstance().getReference().child(Util.USERS)
             .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+    private boolean flag=false;
 
 
     public WorkoutAdapter(@NonNull FirebaseRecyclerOptions<WorkoutRecord> options) {
@@ -38,41 +40,48 @@ public class WorkoutAdapter extends FirebaseRecyclerAdapter<WorkoutRecord, Worko
     protected void onBindViewHolder(@NonNull final WorkoutViewHolder holder, final int position, @NonNull WorkoutRecord model) {
 
 
+            holder.getTitle().setText(model.getTitle());
+            holder.getCity().setText(model.getCity());
+            holder.getDescription().setText(model.getDescription());
+            holder.getType().setText(model.getType());
+            holder.getDateAndTime().setText(model.getDate()+" "+model.getHour());
 
-        holder.getTitle().setText(model.getTitle());
-        holder.getCity().setText(model.getCity());
-        holder.getDescription().setText(model.getDescription());
-        holder.getType().setText(model.getType());
-        holder.getJoinWorkoutButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            holder.checkJoinButton(getRef(position).getKey(), userDatabaseReference.getKey());
 
-                holder.setJoined( ! holder.isJoined() );
+            holder.getJoinWorkoutButton().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                joinedDatabaseReference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.child(getRef(position).getKey()).hasChild(userDatabaseReference.getKey() )){
+                    holder.setJoined(!holder.isJoined());
+
+                    flag = true;
+
+                    joinedDatabaseReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (flag) {
+
+                                if (dataSnapshot.child(getRef(position).getKey()).hasChild(userDatabaseReference.getKey())) {
+                                    joinedDatabaseReference.child(getRef(position).getKey()).child(userDatabaseReference.getKey()).removeValue();
+
+                                    flag = false;
+                                } else {
+                                    joinedDatabaseReference.child(getRef(position).getKey()).child(userDatabaseReference.getKey()).setValue("1");
+
+                                    flag = false;
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
                         }
-                    }
+                    });
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    }
-                });
-
-                if(holder.isJoined()){
-                    holder.getJoinWorkoutButton().setBackgroundColor(Color.RED);
-                    holder.getJoinWorkoutButton().setText(Util.LEAVE);
-                }else{
-                    holder.getJoinWorkoutButton().setBackgroundColor(Color.BLUE);
-                    holder.getJoinWorkoutButton().setText(Util.JOINED);
                 }
-
-            }
-        });
+            });
 
         Log.d("title",getItem(position).getTitle()+""+model.getTitle());
     }
@@ -90,6 +99,10 @@ public class WorkoutAdapter extends FirebaseRecyclerAdapter<WorkoutRecord, Worko
         private TextView title,description,type,city;
         private Button joinWorkoutButton;
         private boolean joined;
+        private long participate;
+        private TextView dateAndTime;
+
+        private FirebaseAuth auth;
 
         public WorkoutViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -99,8 +112,53 @@ public class WorkoutAdapter extends FirebaseRecyclerAdapter<WorkoutRecord, Worko
             description = itemView.findViewById(R.id.single_workout_descriptions);
             type = itemView.findViewById(R.id.single_workout_type);
             joinWorkoutButton = itemView.findViewById(R.id.join_workout_btn);
-            joinWorkoutButton.setBackgroundColor(Color.BLUE);
+            dateAndTime = itemView.findViewById(R.id.single_workout_date_and_time);
+            joinWorkoutButton.setBackgroundColor(Color.GREEN);
             joined = false;
+            participate = 0;
+            auth = FirebaseAuth.getInstance();
+            joinedDatabaseReference.keepSynced(true);
+        }
+
+        public void checkJoinButton(final String postKey, final String currentUser){
+
+
+            joinedDatabaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.child(postKey).hasChild(currentUser)) {
+
+                        getJoinWorkoutButton().setBackgroundColor(Color.RED);
+                        getJoinWorkoutButton().setText(Util.LEAVE);
+
+                    }
+                    else{
+                        getJoinWorkoutButton().setBackgroundColor(Color.GREEN);
+                        getJoinWorkoutButton().setText(Util.JOIN);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+        public TextView getDateAndTime() {
+            return dateAndTime;
+        }
+
+        public void setDateAndTime(TextView dateAndTime) {
+            this.dateAndTime = dateAndTime;
+        }
+
+        public long getParticipate() {
+            return participate;
+        }
+
+        public void setParticipate(long participate) {
+            this.participate = participate;
         }
 
         public boolean isJoined() {

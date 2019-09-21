@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Button loginBtn;
     private Button workoutsButton;
+    private Button historyWorkoutsButton;
+    private Button logoutButton;
 
     private FirebaseDatabase firebaseDatabase;
 
@@ -38,6 +40,18 @@ public class MainActivity extends AppCompatActivity {
 
         loginBtn = findViewById(R.id.login_btn);
         workoutsButton = findViewById(R.id.workouts_btn);
+        historyWorkoutsButton = findViewById(R.id.workout_history_btn);
+        logoutButton = findViewById(R.id.logout_btn);
+
+        historyWorkoutsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent historyIntent = new Intent(MainActivity.this, HistoryActivity.class);
+                historyIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(historyIntent);
+            }
+        });
+
 
         workoutsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +68,13 @@ public class MainActivity extends AppCompatActivity {
                 Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
                 loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(loginIntent);
+            }
+        });
+
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
             }
         });
 

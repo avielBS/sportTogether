@@ -7,16 +7,35 @@ public class WorkoutRecord {
     private String title;
     private String city;
     private String description;
+    private String hour;
+    private String date;
 
     public WorkoutRecord(){
-
     }
 
-    public WorkoutRecord(String type, String title, String city, String description) {
+    public WorkoutRecord(String type, String title, String city, String description, String hour, String date) {
         this.type = type;
         this.title = title;
         this.city = city;
         this.description = description;
+        this.hour = hour;
+        this.date = date;
+    }
+
+    public String getHour() {
+        return hour;
+    }
+
+    public void setHour(String hour) {
+        this.hour = hour;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getType() {
