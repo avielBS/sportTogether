@@ -79,6 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                         progressBar.setVisibility(View.INVISIBLE);
                         Toast.makeText(getApplicationContext(),"Welcome !",Toast.LENGTH_LONG).show();
+                        finish();
 
                     }
                     else{

@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,8 +37,10 @@ public class HistoryActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference().child(Util.WORKOUTS);
 
         firebaseOptions = new FirebaseRecyclerOptions.Builder<WorkoutRecord>()
-                        .setQuery(databaseReference.orderByChild(Util.USERID).equalTo(FirebaseAuth.getInstance().getUid().toString())
+                        .setQuery(databaseReference.orderByChild(FirebaseAuth.getInstance().getUid().toString())
+                                        .equalTo(FirebaseAuth.getInstance().getUid().toString())
                                 ,WorkoutRecord.class).build();
+
 
         workoutAdapter = new WorkoutAdapter(firebaseOptions);
         workoutAdapter.startListening();

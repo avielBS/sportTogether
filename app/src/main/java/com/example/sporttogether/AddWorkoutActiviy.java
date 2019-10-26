@@ -54,6 +54,9 @@ public class AddWorkoutActiviy extends AppCompatActivity implements  DatePickerD
     private Button hourButton;
     private TextView hourTxt;
 
+    private Button locationButton;
+    private TextView locationText;
+
     private Spinner spinnerType;
     private String type;
 
@@ -91,6 +94,18 @@ public class AddWorkoutActiviy extends AppCompatActivity implements  DatePickerD
 
         hourButton = findViewById(R.id.workout_hour_button);
         hourTxt = findViewById(R.id.workout_hour_text);
+
+        locationButton = findViewById(R.id.workout_location_button);
+        locationText = findViewById(R.id.workout_location_text);
+
+        locationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mapInetent = new Intent(AddWorkoutActiviy.this, MapActivity.class);
+                mapInetent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(mapInetent);
+            }
+        });
 
         hourButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,7 +190,11 @@ public class AddWorkoutActiviy extends AppCompatActivity implements  DatePickerD
                     newWorkout.child(Util.DATE).setValue(date);
 
                     newWorkout.child(Util.PUBLIC_CITY).setValue(type+"_"+city);
+
                     newWorkout.child(Util.USERID).setValue(firebaseUser.getUid());
+                    newWorkout.child(firebaseUser.getUid()).setValue(firebaseUser.getUid());
+
+
                     newWorkout.child(Util.USERNAME).setValue(dataSnapshot.child(Util.NAME).getValue())
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override

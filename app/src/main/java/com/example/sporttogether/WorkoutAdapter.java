@@ -56,17 +56,19 @@ public class WorkoutAdapter extends FirebaseRecyclerAdapter<WorkoutRecord, Worko
 
                     flag = true;
 
-                    joinedDatabaseReference.addValueEventListener(new ValueEventListener() {
+                    workoursDatabaseReference.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (flag) {
 
-                                if (dataSnapshot.child(getRef(position).getKey()).hasChild(userDatabaseReference.getKey())) {
-                                    joinedDatabaseReference.child(getRef(position).getKey()).child(userDatabaseReference.getKey()).removeValue();
+                                if (dataSnapshot.child(getRef(position).getKey()).hasChild(userDatabaseReference.getKey())  ) {
+//                                    joinedDatabaseReference.child(getRef(position).getKey()).child(userDatabaseReference.getKey()).removeValue();
+                                    workoursDatabaseReference.child(getRef(position).getKey()).child(userDatabaseReference.getKey().toString()).removeValue();
 
                                     flag = false;
                                 } else {
-                                    joinedDatabaseReference.child(getRef(position).getKey()).child(userDatabaseReference.getKey()).setValue("1");
+ //                                   joinedDatabaseReference.child(getRef(position).getKey()).child(userDatabaseReference.getKey()).setValue("1");
+                                    workoursDatabaseReference.child(getRef(position).getKey()).child(userDatabaseReference.getKey().toString()).setValue(userDatabaseReference.getKey());
 
                                     flag = false;
                                 }
@@ -123,7 +125,7 @@ public class WorkoutAdapter extends FirebaseRecyclerAdapter<WorkoutRecord, Worko
         public void checkJoinButton(final String postKey, final String currentUser){
 
 
-            joinedDatabaseReference.addValueEventListener(new ValueEventListener() {
+            workoursDatabaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.child(postKey).hasChild(currentUser)) {
