@@ -12,6 +12,7 @@
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:id="@+id/navigation_view"
 
         app:menu="@menu/drawer_menu"
         app:headerLayout="@layout/header"
@@ -20,47 +21,47 @@
 
     </com.google.android.material.navigation.NavigationView>
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center">
+    <!--<RelativeLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center">-->
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
 
-        android:id="@+id/login_btn"
-        android:text="Login"/>
+        <!--android:id="@+id/login_btn"-->
+        <!--android:text="Login"/>-->
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/create_workout_btn"
-        android:layout_below="@+id/login_btn"
-        android:text="Create workout"/>
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/create_workout_btn"-->
+        <!--android:layout_below="@+id/login_btn"-->
+        <!--android:text="Create workout"/>-->
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/create_workout_btn"
-        android:id="@+id/workout_history_btn"
-        android:text="Workout History"/>
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/create_workout_btn"-->
+        <!--android:id="@+id/workout_history_btn"-->
+        <!--android:text="Workout History"/>-->
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/workout_history_btn"
-        android:id="@+id/workouts_btn"
-        android:text="Workouts"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/workouts_btn"
-        android:id="@+id/logout_btn"
-        android:text="Logout"
-        />
-    </RelativeLayout>
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/workout_history_btn"-->
+        <!--android:id="@+id/workouts_btn"-->
+        <!--android:text="Workouts"-->
+        <!--/>-->
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/workouts_btn"-->
+        <!--android:id="@+id/logout_btn"-->
+        <!--android:text="Logout"-->
+        <!--/>-->
+    <!--</RelativeLayout>-->
 
 </androidx.drawerlayout.widget.DrawerLayout>
