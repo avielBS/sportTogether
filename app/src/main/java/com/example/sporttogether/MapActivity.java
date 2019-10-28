@@ -3,6 +3,7 @@ package com.example.sporttogether;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -35,13 +36,19 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         locationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent resultIntent = new Intent();
+                double[] arr = new double[2];
+
+                arr[0] = location.latitude;
+                arr[1] = location.longitude;
+
+                resultIntent.putExtra(Util.LOCATION,arr);
+                setResult(RESULT_OK,resultIntent);
                 finish();
             }
         });
 
         mapFragment.getMapAsync(this);
-
-
     }
 
 

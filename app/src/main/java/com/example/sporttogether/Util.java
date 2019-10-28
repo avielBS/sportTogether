@@ -23,5 +23,10 @@ class Util {
     public static final String DATE = "date";
     public static final String HOUR = "hour";
     public static final String PARTICIPANTS = "participants";
+    public static final String LOCATION = "location";
+    public static final int CODE = 1;
+    public static final String LAT = "lat";
+    public static final String LONG = "long";
+    public static final int NOT_ENTER_COORD = -1;
 }
 

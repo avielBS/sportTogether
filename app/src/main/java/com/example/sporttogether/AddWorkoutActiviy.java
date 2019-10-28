@@ -1,6 +1,7 @@
 package com.example.sporttogether;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
@@ -24,6 +25,7 @@ import android.widget.Toast;
 
 import com.example.sporttogether.TimeAndDate.MyDatePicker;
 import com.example.sporttogether.TimeAndDate.MyTimePicker;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -66,6 +68,7 @@ public class AddWorkoutActiviy extends AppCompatActivity implements  DatePickerD
 
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
+    private double[] coord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +106,7 @@ public class AddWorkoutActiviy extends AppCompatActivity implements  DatePickerD
             public void onClick(View v) {
                 Intent mapInetent = new Intent(AddWorkoutActiviy.this, MapActivity.class);
                 mapInetent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(mapInetent);
+                startActivityForResult(mapInetent,Util.CODE);
             }
         });
 
@@ -194,6 +197,14 @@ public class AddWorkoutActiviy extends AppCompatActivity implements  DatePickerD
                     newWorkout.child(Util.USERID).setValue(firebaseUser.getUid());
                     newWorkout.child(firebaseUser.getUid()).setValue(firebaseUser.getUid());
 
+                    if(coord != null){
+                        newWorkout.child(Util.LAT).setValue(coord[0]);
+                        newWorkout.child(Util.LONG).setValue(coord[1]);
+                    }else{
+                        newWorkout.child(Util.LAT).setValue(Util.NOT_ENTER_COORD);
+                        newWorkout.child(Util.LONG).setValue(Util.NOT_ENTER_COORD);
+                    }
+
 
                     newWorkout.child(Util.USERNAME).setValue(dataSnapshot.child(Util.NAME).getValue())
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -237,4 +248,15 @@ public class AddWorkoutActiviy extends AppCompatActivity implements  DatePickerD
             Toast.makeText(this,"set workout to future time",Toast.LENGTH_LONG).show();
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == Util.CODE && resultCode == RESULT_OK){
+            coord = data.getDoubleArrayExtra(Util.LOCATION);
+            locationText.setText(coord[0] + " "+coord[1]);
+        }
+    }
 }
+
