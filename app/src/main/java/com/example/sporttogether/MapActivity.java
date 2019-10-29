@@ -62,7 +62,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 //                MarkerOptions().position(TutorialsPoint).title("Tutorialspoint.com"));
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(TutorialsPoint));
 
-        final MarkerOptions markerOptions = new MarkerOptions().position(new LatLng(31.2643411,35.005801)).title("workout");
+        this.location = new LatLng(31.2643411,35.005801);
+        final MarkerOptions markerOptions = new MarkerOptions().position(location).title("workout");
         final Marker marker = mMap.addMarker(markerOptions);
 
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {

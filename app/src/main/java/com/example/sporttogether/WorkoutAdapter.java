@@ -1,5 +1,6 @@
 package com.example.sporttogether;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,6 +49,15 @@ public class WorkoutAdapter extends FirebaseRecyclerAdapter<WorkoutRecord, Worko
             holder.getDateAndTime().setText(model.getDate()+" "+model.getHour());
 
             holder.checkJoinButton(getRef(position).getKey(), userDatabaseReference.getKey());
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent singleWorkoutIntent = new Intent(v.getContext(),SingleWorkoutActivity.class);
+                    singleWorkoutIntent.putExtra(Util.WORKOUT_ID,getRef(position).getKey());
+                    v.getContext().startActivity(singleWorkoutIntent);
+                }
+            });
 
             holder.getJoinWorkoutButton().setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -119,6 +130,7 @@ public class WorkoutAdapter extends FirebaseRecyclerAdapter<WorkoutRecord, Worko
             joined = false;
             participate = 0;
             auth = FirebaseAuth.getInstance();
+
             joinedDatabaseReference.keepSynced(true);
         }
 
