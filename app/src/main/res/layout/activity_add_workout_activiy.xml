@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="#F0F0F0"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -13,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/workout_title"
+        android:background="@drawable/edit_round"
         android:hint="Workout title"
         />
 
@@ -20,6 +22,9 @@
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:maxLines="5"
+        android:background="@drawable/edit_round"
         android:id="@+id/workout_descriptions"
         android:hint="Descriptions"
         />
@@ -35,6 +40,7 @@
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/edit_round"
         android:id="@+id/city_editTxt"
         android:hint="City"
         />
@@ -49,6 +55,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="set date"
+        android:drawableBottom="@drawable/ic_date_range_black_24dp"
+        android:background="@drawable/button_round"
         android:id="@+id/date_button"
         android:layout_gravity="center"/>
 
@@ -61,7 +69,9 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_round"
         android:text="set hour"
+        android:drawableBottom="@drawable/ic_access_time_black_24dp"
         android:id="@+id/workout_hour_button"
         android:layout_gravity="center"/>
 
@@ -74,7 +84,9 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_round"
         android:text="location"
+        android:drawableBottom="@drawable/ic_add_location_black_24dp"
         android:id="@+id/workout_location_button"
         android:layout_gravity="center"/>
 
@@ -88,7 +100,9 @@
     <Button
         android:layout_gravity="center"
         android:padding="10dp"
+        android:background="@drawable/button_round"
         android:layout_width="wrap_content"
+        android:drawableBottom="@drawable/ic_add_black_24dp"
         android:layout_height="wrap_content"
         android:id="@+id/add_workout_btn"
         android:text="Add Workout!"/>
