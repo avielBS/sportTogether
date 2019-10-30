@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -40,6 +41,7 @@ public class SingleWorkoutActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
+    private double lat, lng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,15 @@ public class SingleWorkoutActivity extends AppCompatActivity {
             }
         });
         openOnGoogleMaps = findViewById(R.id.open_on_google_maps);
+        openOnGoogleMaps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri gmmIntentUri = Uri.parse("http://maps.google.com/maps?q="+ lat  +"," + lng +"("+ "workout" + ")&iwloc=A&hl=es)");
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                startActivity(mapIntent);
+            }
+        });
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
@@ -97,7 +108,6 @@ public class SingleWorkoutActivity extends AppCompatActivity {
                     dateAndTime.setText(dataSnapshot.child(Util.DATE).getValue().toString() + " " + dataSnapshot.child(Util.HOUR).getValue().toString());
                     creatorTextView.setText(dataSnapshot.child(Util.USERNAME).getValue().toString());
 
-                    double lat, lng;
                     lat = new Double(dataSnapshot.child(Util.LAT).getValue().toString());
                     lng = new Double(dataSnapshot.child(Util.LONG).getValue().toString());
 

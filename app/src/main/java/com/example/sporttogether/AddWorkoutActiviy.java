@@ -213,7 +213,7 @@ public class AddWorkoutActiviy extends AppCompatActivity implements  DatePickerD
                                     if(task.isSuccessful()){
                                         progressBar.setVisibility(View.INVISIBLE);
                                         Toast.makeText(getApplicationContext(),"Your workout add successfully",Toast.LENGTH_LONG).show();
-                                        startActivity(new Intent(AddWorkoutActiviy.this,MainActivity.class));
+                                        finish();
                                     }else{
                                         progressBar.setVisibility(View.INVISIBLE);
                                         Toast.makeText(getApplicationContext(),"upload failed",Toast.LENGTH_LONG).show();
