@@ -9,16 +9,25 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
+    private TextView nameTextView;
 
     private FirebaseDatabase firebaseDatabase;
 
@@ -33,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.navigation_drawer);
         navigationView = findViewById(R.id.navigation_view);
+        nameTextView = navigationView.getHeaderView(0).findViewById(R.id.name_text_view);
+
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawe_open, R.string.navigation_drawer_close);
 
@@ -41,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         toggle.syncState();
+
+
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -88,6 +101,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         firebaseAuth = FirebaseAuth.getInstance();
+
+
+
+        nameTextView.setText("Welcome "+firebaseAuth.getCurrentUser().getDisplayName());
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
