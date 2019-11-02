@@ -14,13 +14,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
-        <activity android:name=".SingleWorkoutActivity"></activity>
-        <activity android:name=".MapActivity" />
-        <activity android:name=".HistoryActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".WorkoutsActivity" />
-        <activity android:name=".AddWorkoutActiviy" />
+        <activity
+            android:name=".SettingsActivity"
+            android:parentActivityName=".MainActivity"
+            android:label="Settings"/>
+        <activity
+            android:name=".SingleWorkoutActivity"
+            android:label ="Workout details"/>
+        <activity
+            android:name=".MapActivity"
+            android:parentActivityName=".AddWorkoutActiviy"
+            android:label="Map"/>
+        <activity
+            android:name=".HistoryActivity"
+            android:label="Workout History"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".LoginActivity"
+            android:label="Login"/>
+        <activity
+            android:name=".RegisterActivity"
+            android:label="Register"/>
+        <activity
+            android:name=".WorkoutsActivity"
+            android:label="Search workout"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".AddWorkoutActiviy"
+            android:label="Add workout"
+            android:parentActivityName=".MainActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

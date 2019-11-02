@@ -9,17 +9,27 @@ public class WorkoutRecord {
     private String description;
     private String hour;
     private String date;
+    private String userId;
 
     public WorkoutRecord(){
     }
 
-    public WorkoutRecord(String type, String title, String city, String description, String hour, String date) {
+    public WorkoutRecord(String type, String title, String city, String description, String hour, String date,String userId) {
         this.type = type;
         this.title = title;
         this.city = city;
         this.description = description;
         this.hour = hour;
         this.date = date;
+        this.userId = userId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getHour() {

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:openDrawer="start"
-    android:background="#F0F0F0"
+    android:background="@mipmap/imhw127b49c21"
+
     android:id="@+id/navigation_drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,7 +15,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:id="@+id/navigation_view"
-
         app:menu="@menu/drawer_menu"
         app:headerLayout="@layout/header"
         android:layout_gravity="start"

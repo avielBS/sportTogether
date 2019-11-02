@@ -23,7 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity  {
 
     private EditText emailEditTxt;
     private EditText passwordEditTxt;
@@ -65,6 +65,8 @@ public class LoginActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+
     }
 
     private void checkLogin() {
@@ -119,4 +121,5 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
 }

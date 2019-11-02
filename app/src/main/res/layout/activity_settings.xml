@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#F0F0F0"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".SettingsActivity">
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:background="@drawable/edit_round"
+        android:layout_height="wrap_content"
+        android:id="@+id/change_password_editText"
+        android:inputType="textPassword"
+        android:hint="new password"/>
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:background="@drawable/edit_round"
+        android:layout_marginTop="10dp"
+        android:id="@+id/confirm_password_editText"
+        android:hint="confiem password"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="change password"
+        android:layout_marginTop="10dp"
+        android:id="@+id/change_password_button"
+        android:layout_gravity="center"
+        android:background="@drawable/button_round"/>
+
+
+
+</LinearLayout>

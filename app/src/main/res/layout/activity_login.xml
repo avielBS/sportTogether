@@ -50,4 +50,5 @@
         android:layout_height="wrap_content"
         android:text="Dont have account? click to register !"/>
 
+
 </LinearLayout>
