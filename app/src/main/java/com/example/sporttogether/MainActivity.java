@@ -102,9 +102,12 @@ public class MainActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
+        if(firebaseAuth.getCurrentUser()!=null)
+            if(firebaseAuth.getCurrentUser().getDisplayName()!=null)
+                nameTextView.setText("Welcome "+firebaseAuth.getCurrentUser().getDisplayName());
+            else
+                nameTextView.setText("Welcome ");
 
-
-        nameTextView.setText("Welcome "+firebaseAuth.getCurrentUser().getDisplayName());
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
