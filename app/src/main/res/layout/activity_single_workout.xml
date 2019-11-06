@@ -53,20 +53,14 @@
             android:id="@+id/single_workout_date_and_time"
             android:text="date and time"/>
 
-        <!--<Button-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textStyle="bold"-->
-            <!--android:text="Join"-->
-            <!--android:id="@+id/join_workout_btn"-->
-            <!--/>-->
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/remove_workout_button"
             android:background="@android:color/holo_red_light"
             android:layout_toRightOf="@+id/workout_title"
-            android:text="Remove Workout "/>
+            android:text="Remove Workout "
+            />
 
         <Button
             android:layout_width="match_parent"

@@ -70,6 +70,8 @@ public class AddWorkoutActiviy extends AppCompatActivity implements  DatePickerD
     private FirebaseUser firebaseUser;
     private double[] coord;
 
+    private int year,month,day,hour,minute;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -154,6 +156,11 @@ public class AddWorkoutActiviy extends AppCompatActivity implements  DatePickerD
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Calendar current = Calendar.getInstance();
         Calendar calendar = Calendar.getInstance();
+
+        this.year = year;
+        this.month = month;
+        this.day = dayOfMonth;
+
         calendar.set(Calendar.YEAR,year);
         calendar.set(Calendar.MONTH,month);
         calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
@@ -177,6 +184,9 @@ public class AddWorkoutActiviy extends AppCompatActivity implements  DatePickerD
         final String date = this.dateTxt.getText().toString();
         final String hour = this.hourTxt.getText().toString();
 
+        final Calendar workoutTime = Calendar.getInstance();
+        workoutTime.set(this.year,this.month,this.day,this.hour,this.minute);
+
         if(!title.isEmpty() && !city.isEmpty() && !hourTxt.getText().toString().isEmpty() &&! dateTxt.getText().toString().isEmpty()) {
             //
             final DatabaseReference newWorkout = databaseReference.push();
@@ -196,6 +206,7 @@ public class AddWorkoutActiviy extends AppCompatActivity implements  DatePickerD
 
                     newWorkout.child(Util.USERID).setValue(firebaseUser.getUid());
                     newWorkout.child(firebaseUser.getUid()).setValue(firebaseUser.getUid());
+                    newWorkout.child(Util.DATE_IN_MILLS).setValue(workoutTime.getTimeInMillis());
 
                     if(coord != null){
                         newWorkout.child(Util.LAT).setValue(coord[0]);
@@ -242,9 +253,11 @@ public class AddWorkoutActiviy extends AppCompatActivity implements  DatePickerD
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         Calendar calendar = Calendar.getInstance();
 
-        if(hourOfDay >= calendar.get(Calendar.HOUR_OF_DAY) && minute >= calendar.get(Calendar.MINUTE) )
-             hourTxt.setText(hourOfDay+":"+minute);
-        else
+        if(hourOfDay >= calendar.get(Calendar.HOUR_OF_DAY) && minute >= calendar.get(Calendar.MINUTE) ) {
+            hourTxt.setText(hourOfDay + ":" + minute);
+            this.hour = hourOfDay;
+            this.minute = minute;
+        }else
             Toast.makeText(this,"set workout to future time",Toast.LENGTH_LONG).show();
 
     }

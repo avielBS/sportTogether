@@ -29,5 +29,6 @@ class Util {
     public static final String LONG = "long";
     public static final int NOT_ENTER_COORD = -1;
     public static final String WORKOUT_ID = "workout_id";
+    public static final String DATE_IN_MILLS = "dateInMillis";
 }
 

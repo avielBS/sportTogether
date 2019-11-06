@@ -23,6 +23,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class WorkoutAdapter extends FirebaseRecyclerAdapter<WorkoutRecord, WorkoutAdapter.WorkoutViewHolder> {
 
     private DatabaseReference joinedDatabaseReference = FirebaseDatabase.getInstance().getReference().child(Util.JOIN_TO_WORKOUT);
@@ -39,7 +44,7 @@ public class WorkoutAdapter extends FirebaseRecyclerAdapter<WorkoutRecord, Worko
 
 
     @Override
-    protected void onBindViewHolder(@NonNull final WorkoutViewHolder holder, final int position, @NonNull WorkoutRecord model) {
+    protected void onBindViewHolder(@NonNull final WorkoutViewHolder holder, final int position, @NonNull final WorkoutRecord model) {
 
 
             holder.getTitle().setText(model.getTitle());
@@ -79,7 +84,19 @@ public class WorkoutAdapter extends FirebaseRecyclerAdapter<WorkoutRecord, Worko
                                     flag = false;
                                 } else {
  //                                   joinedDatabaseReference.child(getRef(position).getKey()).child(userDatabaseReference.getKey()).setValue("1");
-                                    workoursDatabaseReference.child(getRef(position).getKey()).child(userDatabaseReference.getKey().toString()).setValue(userDatabaseReference.getKey());
+                                    Calendar current = Calendar.getInstance();
+
+                                        if(current.getTimeInMillis() < model.getDateInMillis()){
+                                            Log.d(" relvate workout",current.getTimeInMillis() - model.getDateInMillis()+"");
+                                            workoursDatabaseReference.child(getRef(position).getKey()).child(userDatabaseReference.getKey().toString()).setValue(userDatabaseReference.getKey());
+                                        }
+                                        else{
+                                            Toast.makeText(holder.itemView.getContext(),"Workout time pass",Toast.LENGTH_LONG).show();
+                                        }
+
+
+
+
 
                                     flag = false;
                                 }
