@@ -53,6 +53,13 @@
             android:id="@+id/single_workout_date_and_time"
             android:text="date and time"/>
 
+        <TextView
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/single_workout_participants"
+            android:text="participants: "/>
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

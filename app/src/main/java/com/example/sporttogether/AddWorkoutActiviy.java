@@ -1,20 +1,13 @@
 package com.example.sporttogether;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
-
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -23,9 +16,13 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+
 import com.example.sporttogether.TimeAndDate.MyDatePicker;
 import com.example.sporttogether.TimeAndDate.MyTimePicker;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,10 +33,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.sql.Time;
 import java.text.DateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 
 public class AddWorkoutActiviy extends AppCompatActivity implements  DatePickerDialog.OnDateSetListener,
@@ -207,6 +202,7 @@ public class AddWorkoutActiviy extends AppCompatActivity implements  DatePickerD
                     newWorkout.child(Util.USERID).setValue(firebaseUser.getUid());
                     newWorkout.child(firebaseUser.getUid()).setValue(firebaseUser.getUid());
                     newWorkout.child(Util.DATE_IN_MILLS).setValue(workoutTime.getTimeInMillis());
+                    newWorkout.child(Util.PARTICIPANTS).setValue(1);
 
                     if(coord != null){
                         newWorkout.child(Util.LAT).setValue(coord[0]);

@@ -11,11 +11,12 @@ public class WorkoutRecord {
     private String date;
     private String userId;
     private long dateInMillis;
+    private long participants;
 
     public WorkoutRecord(){
     }
 
-    public WorkoutRecord(String type, String title, String city, String description, String hour, String date,String userId,long dateInMillis) {
+    public WorkoutRecord(String type, String title, String city, String description, String hour, String date,String userId,long dateInMillis,long participants) {
         this.type = type;
         this.title = title;
         this.city = city;
@@ -24,6 +25,15 @@ public class WorkoutRecord {
         this.date = date;
         this.userId = userId;
         this.dateInMillis = dateInMillis;
+        this.participants = participants;
+    }
+
+    public long getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(long participants) {
+        this.participants = participants;
     }
 
     public long getDateInMillis() {

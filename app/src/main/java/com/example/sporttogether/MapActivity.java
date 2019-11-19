@@ -1,15 +1,12 @@
 package com.example.sporttogether;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -56,11 +53,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        // Add a marker in Sydney and move the camera
-//        LatLng TutorialsPoint = new LatLng(21, 57);
-//        mMap.addMarker(new
-//                MarkerOptions().position(TutorialsPoint).title("Tutorialspoint.com"));
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(TutorialsPoint));
 
         this.location = new LatLng(31.2643411,35.005801);
         final MarkerOptions markerOptions = new MarkerOptions().position(location).title("workout");

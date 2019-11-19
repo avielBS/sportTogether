@@ -1,18 +1,17 @@
 package com.example.sporttogether;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,6 +34,7 @@ public class SingleWorkoutActivity extends AppCompatActivity {
     private TextView typeTextView;
     private TextView dateAndTime;
     private TextView creatorTextView;
+    private TextView participantsTextView;
 
     private Button removeButton;
     private Button openOnGoogleMaps;
@@ -56,6 +56,7 @@ public class SingleWorkoutActivity extends AppCompatActivity {
         cityTextView = findViewById(R.id.single_workout_city);
         typeTextView = findViewById(R.id.single_workout_type);
         creatorTextView = findViewById(R.id.single_workout_creator);
+        participantsTextView = findViewById(R.id.single_workout_participants);
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child(Util.WORKOUTS);
 
@@ -107,6 +108,7 @@ public class SingleWorkoutActivity extends AppCompatActivity {
                     typeTextView.setText(dataSnapshot.child(Util.TYPE).getValue().toString());
                     dateAndTime.setText(dataSnapshot.child(Util.DATE).getValue().toString() + " " + dataSnapshot.child(Util.HOUR).getValue().toString());
                     creatorTextView.setText(dataSnapshot.child(Util.USERNAME).getValue().toString());
+                    participantsTextView.setText("participants : " + dataSnapshot.child(Util.PARTICIPANTS).getValue().toString());
 
                     lat = new Double(dataSnapshot.child(Util.LAT).getValue().toString());
                     lng = new Double(dataSnapshot.child(Util.LONG).getValue().toString());
